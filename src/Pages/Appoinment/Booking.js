@@ -30,6 +30,7 @@ const Booking = ({treatment,date,setTreatment}) => {
     <input type="text" name='address' placeholder="Address" class="input input-bordered w-full max-w-xs" />
     <input type="number" name='phone' placeholder="Phone Number" class="input input-bordered w-full max-w-xs" />
     <input type="submit" value="submit" class="btn btn-primary w-full max-w-xs" />
+    
 
     </form>
   </div>
