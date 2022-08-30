@@ -5,7 +5,7 @@ const HomeHeader = () => {
     return (
         <div class="hero min-h-screen bg-white-200 px-12">
   <div class="hero-content flex-col lg:flex-row-reverse">
-    <img src={chair} class="max-w-md rounded-lg shadow-2xl" />
+    <img src={chair} class="max-w-sm rounded-lg shadow-2xl" />
     <div className='px-12'>
       <h2 class="text-7xl font-bold">Your New Smile Starts Here</h2>
       <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
