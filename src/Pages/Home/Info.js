@@ -12,6 +12,7 @@ const Info = () => {
             
 
             </InfoCards>
+            
         </div>
     );
 };
