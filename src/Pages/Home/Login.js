@@ -2,7 +2,11 @@
 import React from 'react';
 import { useSignInWithGoogle,useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../Firebaseinit';
+import Loading from '../Shared Page/Loading';
+import Navbar from "../Shared Page/Navbar"
+
 const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth); 
   const { register, formState: { errors }, handleSubmit } = useForm();
@@ -12,15 +16,23 @@ const Login = () => {
     loading,
     error,
   ] = useSignInWithEmailAndPassword(auth);
+  
+  const navigate=useNavigate()
+  const location = useLocation()
+
+  let from= location.state?.from?.pathname || "/appoinment"
   const onSubmit = (data) => {
-    console.log(data);
+    
     signInWithEmailAndPassword(data.email,data.password) 
+    navigate('/appoinment')
+    
+
   }
   let signInError;
-
+  
    if(gLoading || loading){
-    return <button class="btn btn-square loading mt-56"></button>
-
+    return <Loading></Loading>
+    
    }
    if(error || gError){
     
@@ -28,19 +40,24 @@ const Login = () => {
       
    }
    if(gUser || user){
-    console.log(gUser,user)
+    navigate (from ,{repalce:true})
    }
-
+   
+   
 
   return (
+        <>
+        <Navbar></Navbar>
         
-      <>
       <div className='flex justify-center  items-center h-screen'>
             
             <div class="card w-96 bg-base-100 shadow-xl">
   <div class="card-body">
     <h2 class="text-center text-2xl font-bold ">Login</h2>
     <form onSubmit={handleSubmit(onSubmit)}>
+    
+    
+    
     <div class="form-control w-full max-w-xs">
     <label class="label">
     <span class="label-text">E-Mail</span>
@@ -98,10 +115,10 @@ const Login = () => {
       
       <input class='btn  w-full max-w-xs  text-white ' type="submit" value="Login"  />
     </form>
-  
+    <p>New to Doctors Portal? <Link class="text-primary" to="/register">Create New Account</Link></p>
     <div class="divider">OR</div>
     <button
-    onClick={() => signInWithGoogle()}
+    onClick={() => signInWithGoogle( )}
     class="btn btn-outline">Continue With Google</button>
    
     
@@ -111,6 +128,7 @@ const Login = () => {
   
         </div>
         </>
+        
     );
 };
 
