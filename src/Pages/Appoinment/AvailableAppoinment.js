@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../Shared Page/Loading';
 import Booking from './Booking';
@@ -11,7 +11,7 @@ const AvailableAppoinment = ({date}) => {
     
     const [treatment,setTreatment]=useState(null)
     const formattedDate = format(date,'PP')
-    const {data:services , isLoading} = useQuery(['available',formattedDate], ()=>fetch(`http://localhost:5000/available?date=${formattedDate }`)
+    const {data:services , isLoading, refetch} = useQuery(['available',formattedDate], ()=>fetch(`http://localhost:5000/available?date=${formattedDate }`)
     .then(res=>res.json())
     )
 
@@ -37,6 +37,7 @@ const AvailableAppoinment = ({date}) => {
             date={date}
             treatment={treatment}
             setTreatment={setTreatment}
+            refetch={refetch}
             ></Booking>}
         </div>
     );

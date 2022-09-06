@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { toast } from 'react-toastify';
 import auth from '../../Firebaseinit';
-const Booking = ({treatment,date,setTreatment}) => {
+const Booking = ({treatment,date,setTreatment,refetch}) => {
    const {_id,name,slots}=treatment;
    const [user] = useAuthState(auth)
    const formattedDate = format(date,"PP")
@@ -38,7 +38,7 @@ const Booking = ({treatment,date,setTreatment}) => {
           toast.error(`Alredy have a appoinment at ${data.booking?.date} & ${data.booking?.slots}` )
         }
       })
-
+      refetch();
       setTreatment(null)
    }
    

@@ -27,6 +27,9 @@ const Navbar = () => {
         <li><Link to='/review'>Review</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
         <li><Link to='/about'>About</Link></li>
+        {
+          user && <li><Link to='/dashboard'>Dashboard</Link></li>
+        }
         <li>{user?<button class="btn btn-ghost" onClick={logout}>Log Out <p className='text-primary'>{user?.displayName}</p></button> 
           :<Link to='/login'>Login</Link>}</li>
         
@@ -44,12 +47,20 @@ const Navbar = () => {
         <li><Link to='/review'>Review</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
         <li><Link to='/about'>About</Link></li>
+        {
+          user && <li><Link to='/dashboard'>Dashboard</Link></li>
+        }
         <li>{user?<button class="btn btn-ghost" onClick={logout} >Log Out <p className='text-primary'>{user?.displayName}</p></button>
           :<Link to='/login'>Login</Link>}</li>
       
     </ul>
   </div>
+  <div className="navbar-end">
+  <label tabindex="1" for="dashboard-sidebar" class="btn btn-ghost lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+      </label>
   
+  </div>
 </div>
     );
 };

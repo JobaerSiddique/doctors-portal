@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../Firebaseinit';
 import Loading from '../Shared Page/Loading';
-import Navbar from "../Shared Page/Navbar"
+
 
 const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth); 
@@ -47,7 +47,7 @@ const Login = () => {
 
   return (
         <>
-        <Navbar></Navbar>
+        
         
       <div className='flex justify-center  items-center h-screen'>
             
