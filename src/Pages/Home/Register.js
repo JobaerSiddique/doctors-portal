@@ -135,6 +135,9 @@ const Register = () => {
      {errors.password?.type === 'minLength' && <span className='text-red-500 '>{errors.password.message}</span>}
      </label>
   </div>
+  
+
+
        {signInError}
         
         <input class='btn  w-full max-w-xs  text-white ' type="submit" value="Sign Up"  />

@@ -1,17 +1,26 @@
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import Loading from '../Shared Page/Loading';
 import Booking from './Booking';
 import Services from './Services';
 
 const AvailableAppoinment = ({date}) => {
-    const [services,setServices]=useState([])
-    const [treatment,setTreatment]=useState(null)
+    // const [services,setServices]=useState([])
 
-    useEffect(()=>{
-        fetch('http://localhost:5000/service')
-        .then(res=>res.json())
-        .then(data=>setServices(data))
-    },[])
+    
+    const [treatment,setTreatment]=useState(null)
+    const formattedDate = format(date,'PP')
+    const {data:services , isLoading} = useQuery(['available',formattedDate], ()=>fetch(`http://localhost:5000/available?date=${formattedDate }`)
+    .then(res=>res.json())
+    )
+
+    if(isLoading){
+        return <Loading></Loading>
+    }
+
+    
+ 
     return (
         <div>
             <h2 className='text-center text-2xl text-primary font-bold '>Availabale Appoinment : {format(date, 'PP')}.</h2>

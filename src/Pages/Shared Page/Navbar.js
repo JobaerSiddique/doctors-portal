@@ -27,8 +27,9 @@ const Navbar = () => {
         <li><Link to='/review'>Review</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
         <li><Link to='/about'>About</Link></li>
-        <li>{user?<button class="btn btn-ghost" onClick={logout}>Log Out</button>
+        <li>{user?<button class="btn btn-ghost" onClick={logout}>Log Out <p className='text-primary'>{user?.displayName}</p></button> 
           :<Link to='/login'>Login</Link>}</li>
+        
         
         
         
@@ -43,7 +44,7 @@ const Navbar = () => {
         <li><Link to='/review'>Review</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
         <li><Link to='/about'>About</Link></li>
-        <li>{user?<button class="btn btn-ghost" onClick={logout}>Log Out</button>
+        <li>{user?<button class="btn btn-ghost" onClick={logout} >Log Out <p className='text-primary'>{user?.displayName}</p></button>
           :<Link to='/login'>Login</Link>}</li>
       
     </ul>

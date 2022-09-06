@@ -1,12 +1,44 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+
+import { toast } from 'react-toastify';
+import auth from '../../Firebaseinit';
 const Booking = ({treatment,date,setTreatment}) => {
    const {_id,name,slots}=treatment;
-   
+   const [user] = useAuthState(auth)
+   const formattedDate = format(date,"PP")
    const handleOnSubmit = event=>{
       event.preventDefault()
       const slots= event.target.slot.value;
       console.log(_id,name,slots)
+      const booking={
+        treatmentId:_id,
+        treatment:name,
+        date:formattedDate,
+        slots,
+        patientName:user.displayName,
+        patient:user.email,
+        phone:event.target.phone.value
+      }
+
+      fetch('http://localhost:5000/booking',{
+        method:"POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(booking)
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        console.log(data)
+        if(data.success){
+          toast(`Appoinment is succssfully at ${formattedDate} & ${slots}` )
+        }
+        else{
+          toast.error(`Alredy have a appoinment at ${data.booking?.date} & ${data.booking?.slots}` )
+        }
+      })
+
       setTreatment(null)
    }
    
@@ -25,9 +57,9 @@ const Booking = ({treatment,date,setTreatment}) => {
   }
   
 </select>
-    <input type="text" name='name' placeholder="Patient's Name" class="input input-bordered w-full max-w-xs" />
-    <input type="email" name='email' placeholder="Patient's email" class="input input-bordered w-full max-w-xs" />
-    <input type="text" name='address' placeholder="Address" class="input input-bordered w-full max-w-xs" />
+    <input type="text" name='name' disabled value={user?.displayName} class="input input-bordered w-full max-w-xs" />
+    <input type="email" name='email'disabled value={user?.email} class="input input-bordered w-full max-w-xs" />
+    
     <input type="number" name='phone' placeholder="Phone Number" class="input input-bordered w-full max-w-xs" />
     <input type="submit" value="submit" class="btn btn-primary w-full max-w-xs" />
     
